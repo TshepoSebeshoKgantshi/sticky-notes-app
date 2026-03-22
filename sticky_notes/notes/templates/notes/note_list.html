@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Sticky Notes - {{ page_title }}
+{% endblock title %}
+
+{% block content %}
+    <section class="notes-intro">
+        <h2>{{ page_title }}</h2>
+        <p><a class="button-link" href="{% url 'note_create' %}">Add note</a></p>
+    </section>
+
+    <section class="notes-grid">
+        {% for note in notes %}
+            <article class="note-card">
+                <h3>
+                    <a href="{% url 'note_detail' pk=note.pk %}">{{ note.title }}</a>
+                </h3>
+                <p>{{ note.content|truncatewords:25 }}</p>
+            </article>
+        {% empty %}
+            <p class="empty-state">No notes have been created yet.</p>
+        {% endfor %}
+    </section>
+{% endblock content %}
